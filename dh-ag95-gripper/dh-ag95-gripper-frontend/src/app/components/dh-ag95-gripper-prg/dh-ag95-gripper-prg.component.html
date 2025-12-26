@@ -1,0 +1,64 @@
+<div *ngIf="contributedNode && robotSettings" class="inline-component">
+  <ur-dropdown
+    [label]="'presenter.dh-ag95-gripper.label.grip-or-release' | translate"
+    [options]="[{
+          label: 'presenter.dh-ag95-gripper.label.grip' | translate,
+          value: GripperAction[GripperAction.grip]
+        },
+        {
+          label: 'presenter.dh-ag95-gripper.label.release' | translate,
+          value: GripperAction[GripperAction.release]
+        }]"
+    [selectedOption]="contributedNode.parameters.action"
+    (selectionChange)="changeAction($event.value)"
+    bindValue="value"
+  ></ur-dropdown>
+  <ur-button
+    *ngIf="contributedNode.parameters.action === GripperAction.grip"
+    class="button"
+    [attr.data-testid]="'dh-ag95-gripper_grip_btn'"
+    type="cta"
+    (handleClick)="onGripRelease('grip')"
+    [disabled]="gripperIsBusy()"
+  >
+    {{ 'presenter.dh-ag95-gripper.label.grip' | translate }}
+  </ur-button>
+  <ur-button
+    *ngIf="contributedNode.parameters.action === GripperAction.release"
+    class="button"
+    [attr.data-testid]="'dh-ag95-gripper_release_btn'"
+    type="cta"
+    (handleClick)="onGripRelease('release')"
+    [disabled]="gripperIsBusy()"
+  >
+    {{ 'presenter.dh-ag95-gripper.label.release' | translate }}
+  </ur-button>
+  <ur-dialog-input
+    (valueChanged)="setWidthValue($event)"
+    [positiveDigitsOnly]="true"
+    [value]="contributedNode.parameters.width?.toString()"
+    [validators]="[widthValueLimits]"
+    [type]="'number'"
+    [label]="'presenter.dh-ag95-gripper.label.width' | translate"
+    unit="mm"
+    precision="0"
+    data-testid="setWidthValue_ur_dialog_input"
+  >
+  </ur-dialog-input>
+  <ur-dialog-input
+    *ngIf="contributedNode.parameters.action === GripperAction.grip"
+    (valueChanged)="setForceValue($event)"
+    [positiveDigitsOnly]="true"
+    [value]="this.contributedNode.parameters.force?.toString()"
+    [validators]="[forceValueLimits]"
+    [type]="'number'"
+    [label]="'presenter.dh-ag95-gripper.label.force' | translate"
+    precision="0"
+    unit="N"
+    data-testid="setForceValue_ur_dialog_input"
+  >
+  </ur-dialog-input>
+  <div *ngIf="showErrorMessage()">
+    <span class="message-error">{{ 'presenter.dh-ag95-gripper.label.gripper-action-failed' | translate }}</span>
+  </div>
+</div>

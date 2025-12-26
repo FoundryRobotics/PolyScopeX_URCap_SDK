@@ -1,0 +1,20 @@
+{
+  "applicationNodes": [
+    {
+      "translationPath": "assets/i18n/",
+      "behaviorURI": "dh-ag95-gripper-app.worker.js",
+      "presenterURI": "main.js",
+      "componentTagName": "foundry-robotics-dh-ag95-gripper-frontend-dh-ag95-gripper-app"
+    }
+  ],
+  "programNodes": [
+    {
+      "excludeFromToolbox": false,
+      "translationPath": "assets/i18n/",
+      "iconURI": "assets/icons/dh-ag95-gripper-prg.svg",
+      "behaviorURI": "dh-ag95-gripper-prg.worker.js",
+      "presenterURI": "main.js",
+      "componentTagName": "foundry-robotics-dh-ag95-gripper-frontend-dh-ag95-gripper-prg"
+    }
+  ]
+}

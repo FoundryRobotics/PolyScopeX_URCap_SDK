@@ -1,0 +1,21 @@
+metadata:
+  vendorID: foundry-robotics
+  urcapID: "dh-ag95-gripper"
+  version: 0.0.1
+  vendorName: Foundry Robotics
+  urcapName: "DH AG-95 Gripper"
+artifacts:
+  containers:
+  - id: "dh-ag95-gripper-backend"
+    image: "dh-ag95-gripper-backend:latest"
+    ingress:
+      - id: xmlrpc
+        containerPort: 40405
+        protocol: http
+        proxyUrl: /
+    devices:
+      - type: ttyTool
+    startup: auto
+  webArchives:
+  - id: "dh-ag95-gripper-frontend"
+    folder: "dh-ag95-gripper-frontend"

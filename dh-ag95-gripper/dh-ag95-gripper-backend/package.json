@@ -1,0 +1,16 @@
+{
+    "name": "dh-ag95-gripper-backend",
+    "version": "0.0.0",
+    "scripts": {
+        "lint": "node -e \"console.log('Linting not supported in docker')\"",
+        "prebuild": "rimraf dist",
+        "build": "npm run build-docker-image && npm run save-docker-image",
+        "build-docker-image": "docker build --platform ${ARCH:-linux/amd64} -t dh-ag95-gripper-backend:latest .",
+        "save-docker-image": "mkdir dist && docker save -o dist/dh-ag95-gripper-backend.tar dh-ag95-gripper-backend:latest"
+    },
+    "private": true,
+    "dependencies": {},
+    "devDependencies": {
+        "rimraf": "5.0.7"
+    }
+}
