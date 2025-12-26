@@ -9,7 +9,7 @@ export interface DhAG95GripperPrgNode extends ProgramNode {
     type: 'foundry-robotics-dh-ag95-gripper-frontend-dh-ag95-gripper-prg';
     parameters: {
         action: GripperAction;
-        width: number;
+        position: number;
         force: number;
     };
 }

@@ -2,32 +2,32 @@
   "program": {
     "tree": {
       "nodes": {
-        "foundry-robotics-dh-ag95-gripper-frontend-dh-ag95-gripper-prg": "XmlRpc Gripper"
+        "foundry-robotics-dh-ag95-gripper-frontend-dh-ag95-gripper-prg": "DH AG95 Gripper"
       }
     }
   },
   "application": {
     "nodes": {
       "foundry-robotics-dh-ag95-gripper-frontend-dh-ag95-gripper-app": {
-        "title": "XmlRpc Gripper",
-        "supportiveText": "Sample showing XmlRpc communication"
+        "title": "DH AG95 Gripper",
+        "supportiveText": "DH AG95 Gripper"
       }
     }
   },
   "presenter": {
     "dh-ag95-gripper": {
       "label": {
-        "description": "XmlRpc Gripper sample showing grip, release, is_busy and is_grip_detected methods.",
+        "description": "DH AG95 Gripper",
         "grip": "Grip",
         "release": "Release",
         "grip-or-release": "Grip or Release",
         "force": "Force",
         "gripper-action-failed": "Gripper action failed",
         "force-error": "Force out of range",
-        "width-error": "Width out of range",
-        "width": "Width",
+        "position-error": "Position out of range",
+        "position": "Position",
         "select-variable": "Pick variable",
-        "width-variable": "Width variable",
+        "position-variable": "Position variable",
         "variable-error": "Variable not valid",
         "grip-detected": "Grip Detected",
         "on-grip-detected": "Grip Detected function",

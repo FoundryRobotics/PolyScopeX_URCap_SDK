@@ -3,9 +3,9 @@ import { ProgramBehaviors, ProgramNode, registerProgramBehavior, ScriptBuilder }
 import { GripperAction, DhAG95GripperPrgNode } from './dh-ag95-gripper-prg.node';
 
 const createGripLabel = async (node: DhAG95GripperPrgNode): Promise<string> => {
-    return `Grip (${node.parameters.width},${node.parameters.force})`;
+    return `Grip (${node.parameters.position},${node.parameters.force})`;
 };
-const createReleaseLabel = async (node: DhAG95GripperPrgNode): Promise<string> => `Release (${node.parameters.width})`;
+const createReleaseLabel = async (node: DhAG95GripperPrgNode): Promise<string> => `Release (${node.parameters.position})`;
 
 const createProgramNodeLabel = async (node: DhAG95GripperPrgNode): Promise<string> =>
     node.parameters.action === GripperAction.grip ? createGripLabel(node) : createReleaseLabel(node);
@@ -18,23 +18,23 @@ const createProgramNode = async (): Promise<DhAG95GripperPrgNode> => ({
     allowsChildren: false,
     parameters: {
         action: GripperAction.grip,
-        width: 0,
+        position: 0,
         force: 20,
     },
 });
 
 const generateGripCode = (node: DhAG95GripperPrgNode) => {
     const builder = new ScriptBuilder();
-    const width: number = node.parameters.width;
+    const position: number = node.parameters.position;
     const force: number = node.parameters.force;
-    builder.addStatements(`dh_ag95_close_wait(${force},${width})\n`);
+    builder.addStatements(`dh_ag95_close_wait(${force},${position})\n`);
     return builder;
 };
 
 const generateReleaseCode = (node: DhAG95GripperPrgNode) => {
     const builder = new ScriptBuilder();
-    const width: number = node.parameters.width;
-    builder.addStatements(`dh_ag95_open_wait(${width})\n`);
+    const position: number = node.parameters.position;
+    builder.addStatements(`dh_ag95_open_wait(${position})\n`);
     return builder;
 };
 

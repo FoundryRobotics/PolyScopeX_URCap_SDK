@@ -34,15 +34,15 @@
     {{ 'presenter.dh-ag95-gripper.label.release' | translate }}
   </ur-button>
   <ur-dialog-input
-    (valueChanged)="setWidthValue($event)"
+    (valueChanged)="setPositionValue($event)"
     [positiveDigitsOnly]="true"
-    [value]="contributedNode.parameters.width?.toString()"
-    [validators]="[widthValueLimits]"
+    [value]="contributedNode.parameters.position?.toString()"
+    [validators]="[positionValueLimits]"
     [type]="'number'"
-    [label]="'presenter.dh-ag95-gripper.label.width' | translate"
+    [label]="'presenter.dh-ag95-gripper.label.position' | translate"
     unit="mm"
     precision="0"
-    data-testid="setWidthValue_ur_dialog_input"
+    data-testid="setPositionValue_ur_dialog_input"
   >
   </ur-dialog-input>
   <ur-dialog-input

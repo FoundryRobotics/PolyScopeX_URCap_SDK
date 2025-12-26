@@ -49,7 +49,7 @@ export class DhAG95GripperPrgComponent implements OnInit, OnChanges, ProgramPres
         lowerLimit: 20,
         upperLimit: 100,
     };
-    public static readonly widthValueConstraints = {
+    public static readonly positionValueConstraints = {
         lowerLimit: 0,
         upperLimit: 1000,
     };
@@ -73,15 +73,15 @@ export class DhAG95GripperPrgComponent implements OnInit, OnChanges, ProgramPres
         }
     }
 
-    widthValueLimits = (width: number) => {
+    positionValueLimits = (position: number) => {
         if (
-            DhAG95GripperPrgComponent.widthValueConstraints.lowerLimit &&
-            DhAG95GripperPrgComponent.widthValueConstraints.upperLimit &&
-            (width < DhAG95GripperPrgComponent.widthValueConstraints.lowerLimit ||
-                width > DhAG95GripperPrgComponent.widthValueConstraints.upperLimit)
+            DhAG95GripperPrgComponent.positionValueConstraints.lowerLimit != null &&
+            DhAG95GripperPrgComponent.positionValueConstraints.upperLimit != null &&
+            (position < DhAG95GripperPrgComponent.positionValueConstraints.lowerLimit ||
+                position > DhAG95GripperPrgComponent.positionValueConstraints.upperLimit)
         ) {
-            return this.translateService.instant('presenter.dh-ag95-gripper.label.width-error', {
-                limit: DhAG95GripperPrgComponent.widthValueConstraints,
+            return this.translateService.instant('presenter.dh-ag95-gripper.label.position-error', {
+                limit: DhAG95GripperPrgComponent.positionValueConstraints,
                 unit: 'mm',
             });
         }
@@ -90,8 +90,8 @@ export class DhAG95GripperPrgComponent implements OnInit, OnChanges, ProgramPres
 
     forceValueLimits = (force: number) => {
         if (
-            DhAG95GripperPrgComponent.forceValueConstraints.lowerLimit &&
-            DhAG95GripperPrgComponent.forceValueConstraints.upperLimit &&
+            DhAG95GripperPrgComponent.forceValueConstraints.lowerLimit != null &&
+            DhAG95GripperPrgComponent.forceValueConstraints.upperLimit != null &&
             (force < DhAG95GripperPrgComponent.forceValueConstraints.lowerLimit ||
                 force > DhAG95GripperPrgComponent.forceValueConstraints.upperLimit)
         ) {
@@ -116,9 +116,9 @@ export class DhAG95GripperPrgComponent implements OnInit, OnChanges, ProgramPres
         this.showError(false);
         try {
             if (action === GripperAction.grip) {
-                this.doGrip(this.contributedNode.parameters.width, this.contributedNode.parameters.force);
+                this.doGrip(this.contributedNode.parameters.position, this.contributedNode.parameters.force);
             } else {
-                this.doRelease(this.contributedNode.parameters.width);
+                this.doRelease(this.contributedNode.parameters.position);
             }
         } catch (error) {
             this.showError(true, error);
@@ -126,19 +126,19 @@ export class DhAG95GripperPrgComponent implements OnInit, OnChanges, ProgramPres
         }
     }
 
-    doGrip(width: number, force: number) {
+    doGrip(position: number, force: number) {
         this.doRequest('dh_ag95_set_force', [force]);
-        this.doRequest('dh_ag95_set_position', [width]);
+        this.doRequest('dh_ag95_set_position', [position]);
     }
 
-    doRelease(width: number) {
-        this.doRequest('dh_ag95_set_position', [width]);
+    doRelease(position: number) {
+        this.doRequest('dh_ag95_set_position', [position]);
     }
 
-    setWidthValue(newValue: number): void {
-        const newWidth = Number(newValue);
-        if (newWidth !== this.contributedNode.parameters.width) {
-            this.contributedNode.parameters.width = newWidth;
+    setPositionValue(newValue: number): void {
+        const newPosition = Number(newValue);
+        if (newPosition !== this.contributedNode.parameters.position) {
+            this.contributedNode.parameters.position = newPosition;
             this.saveNode();
         }
     }
