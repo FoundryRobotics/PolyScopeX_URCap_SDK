@@ -20,7 +20,7 @@ def dh_ag95_connect():
 	return dh_ag95.dh_ag95_connect()
 end
 
-def dh_ag95_init(full: bool):
+def dh_ag95_init(full = False):
 	return dh_ag95.dh_ag95_init(full)
 end
 
@@ -28,18 +28,18 @@ def dh_ag95_is_init():
     return dh_ag95.dh_ag95_is_init()
 end
 
-def dh_ag95_set_io_control(iocontrol: bool):
+def dh_ag95_set_io_control(iocontrol = False):
 	return dh_ag95.dh_ag95_set_io_control(iocontrol)
 end
 
-def dh_ag95_set_init_grip_open(open: bool):
+def dh_ag95_set_init_grip_open(open = True):
 	return dh_ag95.dh_ag95_set_init_grip_open(open)
 end
 
 # valid force interval = 20-100
 # min force 20 corresponds to ~45N
 # max force 100 corresponds to ~160N
-def dh_ag95_set_force(force: int):
+def dh_ag95_set_force(force = 20):
 	return dh_ag95.dh_ag95_set_force(force)
 end
 
