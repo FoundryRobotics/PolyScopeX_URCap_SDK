@@ -83,29 +83,42 @@ def dh_ag95_init_wait(full = False):
     return True
 end
 
-def dh_ag95_open(position = 1000):
-    return dh_ag95_set_position(position)
+global dh_ag95_auto_inited = False
+def dh_ag95_auto_init():
+    if dh_ag95_auto_inited == False:
+        dh_ag95_auto_inited = True
+        return dh_ag95_init_wait()
+    end
+    return True
 end
 
-def dh_ag95_open_wait(position = 1000):
-    if dh_ag95_open(position) == False:
+def dh_ag95_open(position = 1000, wait = True):
+    if dh_ag95_auto_init() == False:
         return False
     end
-    return dh_ag95_wait_grip()
+    if dh_ag95_set_position(position) == False:
+        return False
+    end
+    if wait == True:
+        return dh_ag95_wait_grip()
+    end
+    return True
 end
 
-def dh_ag95_close(force = 20, position = 0):
+def dh_ag95_close(force = 20, position = 0, wait = True):
+    if dh_ag95_auto_init() == False:
+        return False
+    end
     if dh_ag95_set_force(force) == False:
         return False
     end
-    return dh_ag95_set_position(position)
-end
-
-def dh_ag95_close_wait(force = 20, position = 0):
-    if dh_ag95_close(force, position) == False:
+    if dh_ag95_set_position(position) == False:
         return False
     end
-    return dh_ag95_wait_grip()
+    if wait == True:
+        return dh_ag95_wait_grip()
+    end
+    return True
 end
 
 def dh_ag95_wait_grip():

@@ -73,6 +73,11 @@ export class DhAG95GripperPrgComponent implements OnInit, OnChanges, ProgramPres
         }
     }
 
+    toggleWait() {
+        this.contributedNode.parameters.wait = !this.contributedNode.parameters.wait;
+        this.saveNode();
+    }
+
     positionValueLimits = (position: number) => {
         if (
             DhAG95GripperPrgComponent.positionValueConstraints.lowerLimit != null &&
@@ -107,6 +112,11 @@ export class DhAG95GripperPrgComponent implements OnInit, OnChanges, ProgramPres
         const newType = GripperAction[value];
         if (newType !== this.contributedNode.parameters.action) {
             this.contributedNode.parameters.action = newType;
+            if (newType == GripperAction.grip) {
+                this.contributedNode.parameters.position = DhAG95GripperPrgComponent.positionValueConstraints.lowerLimit;
+            } else {
+                this.contributedNode.parameters.position = DhAG95GripperPrgComponent.positionValueConstraints.upperLimit;
+            }
             this.saveNode();
         }
     }

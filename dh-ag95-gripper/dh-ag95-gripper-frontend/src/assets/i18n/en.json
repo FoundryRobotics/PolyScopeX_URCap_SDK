@@ -26,6 +26,7 @@
         "force-error": "Force out of range",
         "position-error": "Position out of range",
         "position": "Position",
+        "wait": "Wait",
         "select-variable": "Pick variable",
         "position-variable": "Position variable",
         "variable-error": "Variable not valid",

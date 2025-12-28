@@ -3,9 +3,9 @@ import { ProgramBehaviors, ProgramNode, registerProgramBehavior, ScriptBuilder }
 import { GripperAction, DhAG95GripperPrgNode } from './dh-ag95-gripper-prg.node';
 
 const createGripLabel = async (node: DhAG95GripperPrgNode): Promise<string> => {
-    return `Grip (${node.parameters.position},${node.parameters.force})`;
+    return `Grip (${node.parameters.position},${node.parameters.force},${node.parameters.wait})`;
 };
-const createReleaseLabel = async (node: DhAG95GripperPrgNode): Promise<string> => `Release (${node.parameters.position})`;
+const createReleaseLabel = async (node: DhAG95GripperPrgNode): Promise<string> => `Release (${node.parameters.position},${node.parameters.wait})`;
 
 const createProgramNodeLabel = async (node: DhAG95GripperPrgNode): Promise<string> =>
     node.parameters.action === GripperAction.grip ? createGripLabel(node) : createReleaseLabel(node);
@@ -20,6 +20,7 @@ const createProgramNode = async (): Promise<DhAG95GripperPrgNode> => ({
         action: GripperAction.grip,
         position: 0,
         force: 20,
+        wait: true,
     },
 });
 
@@ -27,14 +28,16 @@ const generateGripCode = (node: DhAG95GripperPrgNode) => {
     const builder = new ScriptBuilder();
     const position: number = node.parameters.position;
     const force: number = node.parameters.force;
-    builder.addStatements(`dh_ag95_close_wait(${force},${position})\n`);
+    const wait: string = node.parameters.wait ? "True" : "False";
+    builder.addStatements(`dh_ag95_close(${force},${position},${wait})\n`);
     return builder;
 };
 
 const generateReleaseCode = (node: DhAG95GripperPrgNode) => {
     const builder = new ScriptBuilder();
     const position: number = node.parameters.position;
-    builder.addStatements(`dh_ag95_open_wait(${position})\n`);
+    const wait: string = node.parameters.wait ? "True" : "False";
+    builder.addStatements(`dh_ag95_open_wait(${position},${wait})\n`);
     return builder;
 };
 

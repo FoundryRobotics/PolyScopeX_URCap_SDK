@@ -58,6 +58,11 @@
     data-testid="setForceValue_ur_dialog_input"
   >
   </ur-dialog-input>
+  <ur-checkbox
+      [checked]="contributedNode.parameters.wait"
+      [label]="'presenter.simple-gripper.label.wait' | translate"
+      (handleChange)="toggleWait()">
+  </ur-checkbox>
   <div *ngIf="showErrorMessage()">
     <span class="message-error">{{ 'presenter.dh-ag95-gripper.label.gripper-action-failed' | translate }}</span>
   </div>

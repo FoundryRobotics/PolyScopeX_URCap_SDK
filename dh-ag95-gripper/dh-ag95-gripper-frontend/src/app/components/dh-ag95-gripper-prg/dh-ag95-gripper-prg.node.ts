@@ -11,5 +11,6 @@ export interface DhAG95GripperPrgNode extends ProgramNode {
         action: GripperAction;
         position: number;
         force: number;
+        wait: boolean;
     };
 }
