@@ -1,7 +1,7 @@
 metadata:
   vendorID: foundry-robotics
   urcapID: "dh-ag95-gripper"
-  version: 0.0.1
+  version: 0.0.3
   vendorName: Foundry Robotics
   urcapName: "DH AG-95 Gripper"
 artifacts:

@@ -1,15 +1,27 @@
-/// <reference lib="webworker" />
-import { ApplicationBehaviors, registerApplicationBehavior, ScriptBuilder } from '@universal-robots/contribution-api';
-import { DhAG95GripperAppNode } from './dh-ag95-gripper-app.node';
+import {
+    registerSmartSkillBehavior,
+    ScriptBuilder,
+    SmartSkillBehaviors,
+    SmartSkillInstance,
+    SmartSkillsBehaviorAPI,
+    SmartSkillsData,
+} from '@universal-robots/contribution-api';
+import { generatePreambleScriptCode } from '../dh-ag95-gripper-app/dh-ag95-gripper-app.behavior.worker';
 
-const createApplicationNode = (): DhAG95GripperAppNode => ({
-    type: 'foundry-robotics-dh-ag95-gripper-frontend-dh-ag95-gripper-app', // type is required
-    version: '1.0.0', // version is required
-});
+const behaviors: SmartSkillBehaviors = {
+    // factory is required
+    factory: () => {
+        return {
+            type: 'dh-ag95-gripper-smartskill',
+            name: 'DH AG-95 Gripper Toggle',
+            parameters: {},
+        };
+    },
 
-export const generatePreambleScriptCode = () => {
-    const builder = new ScriptBuilder();
-    builder.addStatements(`
+    // startExecution is required
+    startExecution: (instance) => {
+        const builder = new ScriptBuilder();
+        builder.addStatements(`
 #### DH AG95 Gripper Preamble #######################
 set_tool_voltage(24)
 set_tool_communication(True, 115200, 0, 1, 1.5, 3.5)
@@ -134,14 +146,22 @@ def dh_ag95_wait_grip():
     return True
 end
 #####################################################
-`,
-);
-    return builder;
+sleep(0.5)
+dh_ag95_auto_init()
+if dh_ag95_get_actual_position() != 1000:
+    dh_ag95_open(100, 1000, True)
+else:
+    dh_ag95_close(20, 0, True)
+end
+#####################################################
+`);
+        return builder;
+    },
+
+    // stopExecution is optional
+    // stopExecution: (instance) => {
+    //     return new ScriptBuilder();
+    // },
 };
 
-const behaviors: ApplicationBehaviors = {
-    factory: createApplicationNode,
-    generatePreamble: generatePreambleScriptCode,
-};
-
-registerApplicationBehavior(behaviors);
+registerSmartSkillBehavior(behaviors);

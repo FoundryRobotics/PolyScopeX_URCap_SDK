@@ -36,8 +36,9 @@ const generateGripCode = (node: DhAG95GripperPrgNode) => {
 const generateReleaseCode = (node: DhAG95GripperPrgNode) => {
     const builder = new ScriptBuilder();
     const position: number = node.parameters.position;
+    const force: number = node.parameters.force;
     const wait: string = node.parameters.wait ? "True" : "False";
-    builder.addStatements(`dh_ag95_open_wait(${position},${wait})\n`);
+    builder.addStatements(`dh_ag95_open(${force},${position},${wait})\n`);
     return builder;
 };
 

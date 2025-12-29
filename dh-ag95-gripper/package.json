@@ -1,6 +1,6 @@
 {
     "name": "dh-ag95-gripper",
-    "version": "0.0.0",
+    "version": "0.0.3",
     "scripts": {
         "start": "npm run start --prefix dh-ag95-gripper-frontend",
         "install-frontend": "npm install --prefix dh-ag95-gripper-frontend",

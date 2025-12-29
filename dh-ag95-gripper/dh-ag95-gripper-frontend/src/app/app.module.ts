@@ -67,5 +67,15 @@ export class AppModule implements DoBootstrap {
                 type: 'module',
             },
         );
+        new Worker(
+            new URL(
+                './components/dh-ag95-gripper-smartskill/dh-ag95-gripper-smartskill.behavior.worker.ts',
+                /* webpackChunkName: "dh-ag95-gripper-smartskill.worker" */ import.meta.url,
+            ),
+            {
+                name: 'dh-ag95-gripper-smartskill',
+                type: 'module',
+            },
+        );
     }
 }

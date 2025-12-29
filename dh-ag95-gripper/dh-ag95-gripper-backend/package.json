@@ -1,6 +1,6 @@
 {
     "name": "dh-ag95-gripper-backend",
-    "version": "0.0.0",
+    "version": "0.0.2",
     "scripts": {
         "lint": "node -e \"console.log('Linting not supported in docker')\"",
         "prebuild": "rimraf dist",

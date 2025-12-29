@@ -16,5 +16,13 @@
       "presenterURI": "main.js",
       "componentTagName": "foundry-robotics-dh-ag95-gripper-frontend-dh-ag95-gripper-prg"
     }
+  ],
+  "smartSkills": [
+    {
+      "name": "dh-ag95-gripper-smartskill",
+      "iconURI": "assets/icons/dh-ag95-gripper-prg.svg",
+      "behaviorURI": "dh-ag95-gripper-smartskill.worker.js",
+      "translationPath": "assets/i18n/"
+    }
   ]
 }

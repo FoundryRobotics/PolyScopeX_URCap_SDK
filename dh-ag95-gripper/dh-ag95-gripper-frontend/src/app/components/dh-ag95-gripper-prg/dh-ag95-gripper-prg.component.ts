@@ -79,12 +79,8 @@ export class DhAG95GripperPrgComponent implements OnInit, OnChanges, ProgramPres
     }
 
     positionValueLimits = (position: number) => {
-        if (
-            DhAG95GripperPrgComponent.positionValueConstraints.lowerLimit != null &&
-            DhAG95GripperPrgComponent.positionValueConstraints.upperLimit != null &&
-            (position < DhAG95GripperPrgComponent.positionValueConstraints.lowerLimit ||
-                position > DhAG95GripperPrgComponent.positionValueConstraints.upperLimit)
-        ) {
+        if (position < DhAG95GripperPrgComponent.positionValueConstraints.lowerLimit ||
+            position > DhAG95GripperPrgComponent.positionValueConstraints.upperLimit) {
             return this.translateService.instant('presenter.dh-ag95-gripper.label.position-error', {
                 limit: DhAG95GripperPrgComponent.positionValueConstraints,
                 unit: 'mm',
@@ -94,12 +90,8 @@ export class DhAG95GripperPrgComponent implements OnInit, OnChanges, ProgramPres
     };
 
     forceValueLimits = (force: number) => {
-        if (
-            DhAG95GripperPrgComponent.forceValueConstraints.lowerLimit != null &&
-            DhAG95GripperPrgComponent.forceValueConstraints.upperLimit != null &&
-            (force < DhAG95GripperPrgComponent.forceValueConstraints.lowerLimit ||
-                force > DhAG95GripperPrgComponent.forceValueConstraints.upperLimit)
-        ) {
+        if (force < DhAG95GripperPrgComponent.forceValueConstraints.lowerLimit ||
+            force > DhAG95GripperPrgComponent.forceValueConstraints.upperLimit) {
             return this.translateService.instant('presenter.dh-ag95-gripper.label.force-error', {
                 limit: DhAG95GripperPrgComponent.forceValueConstraints,
                 unit: 'N',
@@ -121,29 +113,29 @@ export class DhAG95GripperPrgComponent implements OnInit, OnChanges, ProgramPres
         }
     }
 
-    async onGripRelease(action: string) {
-        this.gripperIsBusy.set(true);
-        this.showError(false);
-        try {
-            if (action === GripperAction.grip) {
-                this.doGrip(this.contributedNode.parameters.position, this.contributedNode.parameters.force);
-            } else {
-                this.doRelease(this.contributedNode.parameters.position);
-            }
-        } catch (error) {
-            this.showError(true, error);
-            this.gripperIsBusy.set(false);
-        }
-    }
+    // async onGripRelease(action: string) {
+    //     this.gripperIsBusy.set(true);
+    //     this.showError(false);
+    //     try {
+    //         if (action === GripperAction.grip) {
+    //             this.doGrip(this.contributedNode.parameters.position, this.contributedNode.parameters.force);
+    //         } else {
+    //             this.doRelease(this.contributedNode.parameters.position);
+    //         }
+    //     } catch (error) {
+    //         this.showError(true, error);
+    //         this.gripperIsBusy.set(false);
+    //     }
+    // }
 
-    doGrip(position: number, force: number) {
-        this.doRequest('dh_ag95_set_force', [force]);
-        this.doRequest('dh_ag95_set_position', [position]);
-    }
+    // doGrip(position: number, force: number) {
+    //     this.doRequest('dh_ag95_set_force', [force]);
+    //     this.doRequest('dh_ag95_set_position', [position]);
+    // }
 
-    doRelease(position: number) {
-        this.doRequest('dh_ag95_set_position', [position]);
-    }
+    // doRelease(position: number) {
+    //     this.doRequest('dh_ag95_set_position', [position]);
+    // }
 
     setPositionValue(newValue: number): void {
         const newPosition = Number(newValue);
@@ -165,6 +157,7 @@ export class DhAG95GripperPrgComponent implements OnInit, OnChanges, ProgramPres
     private async saveNode() {
         await this.presenterAPI.programNodeService.updateNode(this.contributedNode);
     }
+
     private showError(hasError: boolean, error?: unknown) {
         if (hasError && error) {
             console.error(error);
@@ -173,15 +166,15 @@ export class DhAG95GripperPrgComponent implements OnInit, OnChanges, ProgramPres
         this.showErrorMessage.set(hasError);
     }
 
-    private doRequest(methodName: string, params: number[]) {
-        this.xmlRpc
-            .sendXmlRpcRequest(methodName, params)
-            .then((data) => this.showError(data.status !== 200, `XmlRpc.${methodName}(${params}) did not return true`))
-            .catch((error) => this.showError(true, error))
-            .finally(() => {
-                this.gripperIsBusy.set(false);
-            });
-    }
+    // private doRequest(methodName: string, params: number[]) {
+    //     this.xmlRpc
+    //         .sendXmlRpcRequest(methodName, params)
+    //         .then((data) => this.showError(data.status !== 200, `XmlRpc.${methodName}(${params}) did not return true`))
+    //         .catch((error) => this.showError(true, error))
+    //         .finally(() => {
+    //             this.gripperIsBusy.set(false);
+    //         });
+    // }
 
     protected readonly Object = Object;
 }

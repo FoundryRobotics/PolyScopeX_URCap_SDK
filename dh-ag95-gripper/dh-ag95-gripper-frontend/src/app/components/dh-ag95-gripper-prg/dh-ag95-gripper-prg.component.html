@@ -13,7 +13,7 @@
     (selectionChange)="changeAction($event.value)"
     bindValue="value"
   ></ur-dropdown>
-  <ur-button
+  <!-- <ur-button
     *ngIf="contributedNode.parameters.action === GripperAction.grip"
     class="button"
     [attr.data-testid]="'dh-ag95-gripper_grip_btn'"
@@ -32,7 +32,7 @@
     [disabled]="gripperIsBusy()"
   >
     {{ 'presenter.dh-ag95-gripper.label.release' | translate }}
-  </ur-button>
+  </ur-button> -->
   <ur-dialog-input
     (valueChanged)="setPositionValue($event)"
     [positiveDigitsOnly]="true"
@@ -46,7 +46,6 @@
   >
   </ur-dialog-input>
   <ur-dialog-input
-    *ngIf="contributedNode.parameters.action === GripperAction.grip"
     (valueChanged)="setForceValue($event)"
     [positiveDigitsOnly]="true"
     [value]="this.contributedNode.parameters.force?.toString()"
@@ -60,7 +59,7 @@
   </ur-dialog-input>
   <ur-checkbox
       [checked]="contributedNode.parameters.wait"
-      [label]="'presenter.simple-gripper.label.wait' | translate"
+      [label]="'presenter.dh-ag95-gripper.label.wait' | translate"
       (handleChange)="toggleWait()">
   </ur-checkbox>
   <div *ngIf="showErrorMessage()">
